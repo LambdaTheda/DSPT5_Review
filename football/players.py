@@ -3,9 +3,14 @@
 
 
 class Player:
-    '''Dosctring TODO
-    THIS IS NOT A VERY GENERALIZABLE MODEL IF YOU KNOW THINGS ABOUT FOOTBALL
-    and that's okay
+    ''' Generic information about any player in the football game
+    name: string
+    yards: int
+    touchdowns: int
+    safety: int
+    interceptions: int
+    field_goals: int
+    stats: dict with all the player stats
     '''
     def __init__(self, name=None, yards=120, touchdowns=5, safety=1,
                  interceptions=0, field_goals=3):
@@ -15,13 +20,15 @@ class Player:
         self.safety = safety
         self.interceptions = interceptions
         self.field_goals = field_goals
+        self.stats = {'td': touchdowns, 'safety': safety, 'fg': field_goals}
 
     def get_points(self):
         '''Gets points scored by the player from stats
         '''
         td_points = 6 * self.stats['td']
         safety_points = 2 * self.stats['safety']
-        total_points = td_points + safety_points
+        field_goals_points = 3 * self.stats['fg']
+        total_points = td_points + safety_points + field_goals_points
         return total_points
 
 
@@ -41,5 +48,15 @@ class Quarterback(Player):
         score = self.completed_passes - (2 * self.interceptions)
         return score
 
-# TODO - refine the default player stats and/or make a defensive player default
-# with number of tackles, sacks, interceptions etc.
+
+class DefensivePlayer(Player):
+    ''' Specific Defensive Player information
+    name: str
+    tackles: int
+    sacks: int
+    interceptions: int
+    '''
+    def __init__(self, name=None, tackles=5, sacks=4, interceptions=2):
+        super().__init__(name=name, interceptions=interceptions)
+        self.tackles = tackles
+        self.sacks = sacks

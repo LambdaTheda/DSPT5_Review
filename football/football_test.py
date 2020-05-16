@@ -1,6 +1,6 @@
 import unittest
 from players import Player, Quarterback
-from possible_values import *
+from teams import *
 from game import Game
 # TODO - some things you can add...
 
@@ -44,6 +44,9 @@ class FootballPlayerTest(unittest.TestCase):
         qb = Quarterback()
         self.assertEqual((20 - (2 * 4)), qb.passing_score())
 
+    def test_passing_score(self):
+        qb = Quarterback(completed_passes= 40, interceptions = 2)
+        self.assertEqual((40 - (2 * 2)), qb.passing_score())
 
 if __name__ == '__main__':
     unittest.main()
